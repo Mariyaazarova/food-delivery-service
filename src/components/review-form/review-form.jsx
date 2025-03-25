@@ -1,10 +1,8 @@
 import { CButtonGroup, CFormCheck, CFormTextarea } from "@coreui/react";
-import { useAuth } from "../../components/context/auth-context/use-auth";
 import { Counter } from "../counter/counter";
 import { useForm } from "../review-form/use-form";
 
 export const ReviewForm = ({ onSubmit, initialValues }) => {
-  const { auth } = useAuth();
   const { form, setText, incrementRating, decrementRating, clearForm } =
     useForm(initialValues);
 
@@ -12,7 +10,11 @@ export const ReviewForm = ({ onSubmit, initialValues }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ text, rating, userId: auth.userId });
+    onSubmit({
+      text,
+      rating,
+      userId: "a304959a-76c0-4b34-954a-b38dbf310360",
+    });
   };
 
   return (
@@ -24,16 +26,16 @@ export const ReviewForm = ({ onSubmit, initialValues }) => {
               <CFormTextarea
                 value={text}
                 onChange={(event) => setText(event.target.value)}
-                placeholder="Leave a comment here"
+                placeholder="Оставьте комментарий здесь"
                 id="floatingTextarea2"
-                floatingLabel="Comments"
+                floatingLabel="Комментарии"
                 style={{ height: "100px", width: "90%" }}
               ></CFormTextarea>
             </div>
           </div>
 
           <div className="p-2 docs-highlight">
-            <div> &#9733; &#9733; &#9733; &#9733; &#9733;</div>
+            <div>Оценка</div>
             <br />
             <Counter
               value={rating}

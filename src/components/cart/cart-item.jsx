@@ -31,7 +31,7 @@ export const CartItem = ({ id }) => {
   return (
     <div className=" d-flex row mb-4 ">
       <div className="col-md-5 fs-5 ">{dish.name}</div>
-      <div className="col-md-4 d-flex justify-content-end">
+      <div className="col-md-4 d-flex justify-content-end align-items-center">
         <DishCounter id={id} />
       </div>
       <button

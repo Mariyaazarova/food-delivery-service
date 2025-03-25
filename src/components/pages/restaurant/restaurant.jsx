@@ -1,5 +1,5 @@
 import {
-  Link,
+  NavLink,
   Outlet,
   useMatch,
   useNavigate,
@@ -38,19 +38,20 @@ export const Restaurant = () => {
 
   return (
     <div className="m-4">
-      <div className="d-grid gap-2 col-6 mx-auto p-3 m-4">
-        <Link
-          className="btn btn-outline-primary"
+      <div className=" nav  nav-pills justify-content-center gap-2 col-6 mx-auto p-3 m-4">
+        <NavLink
+          className="nav-link invisible-button m-2 fs-5"
+          aria-current="page"
           to={`/restaurants/${id}/menu`}
         >
           Посмотреть меню
-        </Link>
-        <Link
-          className="btn btn-outline-primary"
+        </NavLink>
+        <NavLink
+          className="nav-link invisible-button m-2 fs-5"
           to={`/restaurants/${id}/reviews`}
         >
           Посмотреть отзывы
-        </Link>
+        </NavLink>
       </div>
       <h3 className=" d-flex justify-content-end p-1 text-primary fst-italic ">
         Ресторан: {data.name}

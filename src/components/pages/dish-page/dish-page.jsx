@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { useAuth } from "../../context/auth-context/use-auth";
 import { useGetDishQuery } from "../../../redux/services/api/api";
 import { DishCounter } from "../../dish-counter/dish-counter";
 import { CContainer, CSpinner } from "@coreui/react";
@@ -8,7 +7,6 @@ import { cilCheckCircle } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 
 export const DishPage = () => {
-  const { auth } = useAuth();
   const { dishId } = useParams();
   const { data: dish, isLoading, isError } = useGetDishQuery(dishId);
 
@@ -45,9 +43,13 @@ export const DishPage = () => {
               </p>
               <p className="fw-bolder">цена за единицу: {dish.price} &#8381;</p>
             </div>
-            <div>{auth.isAuthorized && <DishCounter id={dishId} />}</div>
+            <div>
+              <DishCounter id={dishId} />
+            </div>
           </div>
-          <div className="col-md-6">{auth.isAuthorized && <Cart />}</div>
+          <div className="col-md-6">
+            <Cart />
+          </div>
         </div>
       </CContainer>
     );

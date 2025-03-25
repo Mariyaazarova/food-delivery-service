@@ -1,27 +1,21 @@
 import { useState } from "react";
 import { ReviewForm } from "../../review-form/review-form";
 import { User } from "./restaurant-user";
-import { useAuth } from "../../context/auth-context/use-auth";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 
 export const Review = ({ review, handleEditReview }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const { auth } = useAuth();
 
   const { id, userId, text, rating } = review;
 
   const toggleEditMode = () => {
-    if (auth.isAuthorized && auth.userId === userId) {
-      setIsEditing(!isEditing);
-    }
+    setIsEditing(!isEditing);
   };
 
   const handleSaveChanges = (updatedReview) => {
-    if (auth.isAuthorized && auth.userId === userId) {
-      handleEditReview(id, updatedReview);
-      toggleEditMode();
-    }
+    handleEditReview(id, updatedReview);
+    toggleEditMode();
   };
 
   return (
@@ -40,7 +34,7 @@ export const Review = ({ review, handleEditReview }) => {
             <div>{rating} из 5 &#9733;</div>
           </div>
           <div className="p-2 flex-shrink-1 docs-highlight">
-            {auth.isAuthorized && auth.userId === userId && (
+            {userId === "a304959a-76c0-4b34-954a-b38dbf310360" && (
               <button
                 type="button"
                 className="btn btn-outline-secondary"

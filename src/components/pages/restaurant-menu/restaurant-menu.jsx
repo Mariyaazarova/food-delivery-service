@@ -1,13 +1,25 @@
 import { Link, useParams } from "react-router-dom";
-import { useGetMenuByRestaurantIdQuery } from "../../../redux/services/api/api";
+import {
+  useGetMenuByRestaurantIdQuery,
+  useGetRestaurantByIdQuery,
+} from "../../../redux/services/api/api";
 import { CImage, CSpinner } from "@coreui/react";
-import restaurant from "./restaurant.jpg";
 
 export const RestaurantMenu = () => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useGetMenuByRestaurantIdQuery(id);
 
-  if (isLoading) {
+  const {
+    data: menu,
+    isLoading: menuLoading,
+    isError: menuError,
+  } = useGetMenuByRestaurantIdQuery(id);
+  const {
+    data: restaurant,
+    isLoading: restaurantLoading,
+    isError: restaurantError,
+  } = useGetRestaurantByIdQuery(id);
+
+  if (menuLoading || restaurantLoading) {
     return (
       <div className="d-flex justify-content-center p-3">
         <CSpinner />
@@ -15,18 +27,18 @@ export const RestaurantMenu = () => {
     );
   }
 
-  if (isError) {
+  if (menuError || restaurantError) {
     return "error restaurant-menu...";
   }
 
-  if (!data || !data.length) {
+  if (!menu || !menu.length || !restaurant) {
     return null;
   }
 
   return (
     <div className="row">
       <div className="col-md-6">
-        {data.map((dish) => (
+        {menu.map((dish) => (
           <div key={dish.id}>
             <h4 className="m-4">
               <Link className="nav-link text-warning" to={`/dish/${dish.id}`}>
@@ -40,7 +52,7 @@ export const RestaurantMenu = () => {
         ))}
       </div>
       <div className="col-md-6">
-        <CImage fluid src={restaurant} alt="restaurant" />
+        <CImage fluid src={restaurant.img} alt="restaurant" />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { ReviewForm } from "../../review-form/review-form";
-import { useAuth } from "../../context/auth-context/use-auth";
+
 import { useParams } from "react-router-dom";
 import { Review } from "./restaurant-review";
 import { useCallback } from "react";
@@ -13,8 +13,6 @@ import { CSpinner } from "@coreui/react";
 
 export const RestaurantReviews = () => {
   const { id } = useParams();
-
-  const { auth } = useAuth();
 
   const { data, isFetching: isGetReviewsFetching } =
     useGetReviewsByRestaurantIdQuery(id);
@@ -74,14 +72,12 @@ export const RestaurantReviews = () => {
         })}
       </div>
 
-      {auth.isAuthorized && (
-        <div>
-          <h4 className="text-warning">
-            Станьте нашим дегустатором и оставьте отзыв:
-          </h4>
-          <ReviewForm onSubmit={handleAddReview} />
-        </div>
-      )}
+      <div>
+        <h4 className="text-warning">
+          Станьте нашим дегустатором и оставьте отзыв:
+        </h4>
+        <ReviewForm onSubmit={handleAddReview} />
+      </div>
     </div>
   );
 };
